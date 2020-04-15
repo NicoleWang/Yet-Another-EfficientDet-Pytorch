@@ -17,7 +17,8 @@ from utils.utils import preprocess, invert_affine, postprocess
 
 compound_coef = 0
 force_input_size = 1920  # set None to use default size
-img_path = 'test/img.png'
+import sys
+img_path = sys.argv[1]
 
 threshold = 0.2
 iou_threshold = 0.2
@@ -92,12 +93,12 @@ def display(preds, imgs, imshow=True, imwrite=False):
             cv2.waitKey(0)
 
         if imwrite:
-            cv2.imwrite(f'test/img_inferred_d{compound_coef}_this_repo_{i}.jpg', imgs[i])
+            cv2.imwrite(f'result/img_inferred_d{compound_coef}_this_repo_{i}.jpg', imgs[i])
 
 
 out = invert_affine(framed_metas, out)
 display(out, ori_imgs, imshow=False, imwrite=True)
-
+'''
 print('running speed test...')
 with torch.no_grad():
     print('test1: model inferring and postprocessing')
@@ -127,3 +128,4 @@ with torch.no_grad():
     # t2 = time.time()
     # tact_time = (t2 - t1) / 10
     # print(f'{tact_time} seconds, {32 / tact_time} FPS, @batch_size 32')
+'''
